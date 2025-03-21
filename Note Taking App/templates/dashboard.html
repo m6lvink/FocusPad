@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}FocusPad – Dashboard{% endblock %}
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand">FocusPad</span>
+    <div>
+      <a href="/logout" class="btn btn-outline-light">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <h2 class="mb-4">Create a New Note</h2>
+
+  <form method="POST">
+    <div class="mb-4">
+      <input name="title" class="form-control form-control-lg" placeholder="Title" required>
+    </div>
+    <div class="mb-4">
+      <textarea name="content" class="form-control form-control-lg" rows="4" placeholder="Write your note..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success btn-lg w-100">Add Note</button>
+  </form>
+
+  <hr class="my-5">
+  <h3>Your Notes</h3>
+
+  <div class="row">
+    {% for note in notes %}
+    <div class="col-md-6 mt-4">
+      <div class="card shadow-sm note-fade-in">
+        <div class="card-body">
+          <h5 class="card-title">{{ note[1] }}</h5>
+          <p class="card-text">{{ note[2] }}</p>
+          <a href="/delete/{{ note[0] }}" class="btn btn-sm btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
