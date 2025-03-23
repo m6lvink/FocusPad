@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}FocusPad – Login{% endblock %}
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+  <h2 class="text-center">Login to <strong>FocusPad</strong></h2>
+
+  {% if error %}
+    <div class="alert alert-danger mt-3">{{ error }}</div>
+  {% endif %}
+
+  <form method="POST" class="mt-4">
+
+    <!-- Username input -->
+    <div class="mb-4">
+      <label class="form-label">Username</label>
+      <input name="username" class="form-control form-control-lg" value="{{ request.form.get('username', '') }}" required>
+    </div>
+
+    <!-- Password input -->
+    <div class="mb-4">
+      <label class="form-label">Password</label>
+      <input type="password" name="password" class="form-control form-control-lg" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg w-100">Login</button>
+  </form>
+
+  <div class="text-center mt-4">
+    <a href="/" class="btn btn-link">Back to Home</a>
+  </div>
+</div>
+{% endblock %}
