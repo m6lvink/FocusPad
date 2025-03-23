@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+<!-- Override the title block defined in base.html -->
+{% block title %}FocusPad – Dashboard{% endblock %}
+
+<!-- Main content section -->
+{% block content %}
+
+<!-- Top navbar and logout button -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand">FocusPad</span>
+    <div>
+      <a href="/logout" class="btn btn-outline-light">Logout</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Note creation section -->
+<div class="container mt-5">
+  <h2 class="mb-4">Create a New Note</h2>
+
+  <!-- POST form for adding a new note -->
+  <form method="POST">
+    <div class="mb-4">
+      <input name="title" class="form-control form-control-lg" placeholder="Title" required>
+    </div>
+    <div class="mb-4">
+      <textarea name="content" class="form-control form-control-lg" rows="4" placeholder="Write your note..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success btn-lg w-100">Add Note</button>
+  </form>
+
+  <!-- Divider between create and view sections -->
+  <hr class="my-5">
+  <h3>Your Notes</h3>
+
+  <!-- Notes display area -->
+  <div class="row">
+    {% for note in notes %}
+    <div class="col-md-6 mt-4">
+      <div class="card shadow-sm note-fade-in">
+        <div class="card-body">
+          <!-- Note title -->
+          <h5 class="card-title">{{ note[1] }}</h5>
+          <!-- Note content -->
+          <p class="card-text">{{ note[2] }}</p>
+          <!-- Delete button for the note -->
+          <a href="/delete/{{ note[0] }}" class="btn btn-sm btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
