@@ -1,6 +1,13 @@
+# Database
+notes.db
+*.db
+*.sqlite
+*.sqlite3
+
 # Python
 __pycache__/
 *.py[cod]
+*.pyc
 *.egg-info/
 .venv/
 .env
@@ -10,6 +17,8 @@ ENV/
 # Editor
 .vscode/
 .idea/
+*.swp
+*.swo
 
 # macOS
 .DS_Store
@@ -17,9 +26,6 @@ ENV/
 # Logs
 *.log
 
-# Node (if used for frontend toolchain)
+# Node 
 node_modules/
 dist/
-
-# Byte-compiled
-*.pyc
