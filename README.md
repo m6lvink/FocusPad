@@ -1,6 +1,6 @@
 # FocusPad
 
-Note-taking app with nature theme. Fast capture, clean interface, local storage.
+Note-taking app. Fast capture, clean interface, local storage
 
 ## What / Why
 What: Lightweight note app (HTML + Python + Flask).  
