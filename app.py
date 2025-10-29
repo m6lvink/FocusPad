@@ -22,7 +22,6 @@ app.config.update(
 def init_db():
     with sqlite3.connect('notes.db') as conn:
         c = conn.cursor()
-        # Table for user credentials
         c.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY,
@@ -30,7 +29,6 @@ def init_db():
                 password TEXT NOT NULL
             )
         ''')
-        # Table for user notes
         c.execute('''
             CREATE TABLE IF NOT EXISTS notes (
                 id INTEGER PRIMARY KEY,
@@ -40,6 +38,10 @@ def init_db():
                 FOREIGN KEY(user_id) REFERENCES users(id)
             )
         ''')
+        
+        # Index lookups by owner --> faster note retrieval
+        c.execute('CREATE INDEX IF NOT EXISTS idx_notes_user_id ON notes(user_id)')
+
 
 # Init db tables
 init_db()
