@@ -17,7 +17,8 @@
   <!-- Serve CSS via Flask to avoid path/cache issues -->
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body class="theme-light">
+<body>
+  {% if 'user_id' not in session %}
   <header class="header">
     <div class="container d-flex justify-between align-center">
       <a href="/" class="brand">
@@ -30,27 +31,49 @@
       </nav>
     </div>
   </header>
+  {% endif %}
+  
   <main class="main container">
     {% block content %}{% endblock %}
   </main>
+  
+  {% if 'user_id' not in session %}
   <footer class="footer">
     <div class="container">
-      <p>&copy; {{ 2025 }} FocusPad</p>
+      <p>&copy; 2025 FocusPad</p>
     </div>
   </footer>
+  {% endif %}
+
+  <!-- Theme toggle button -->
+  <button id="themeToggle" aria-label="Toggle theme">
+    <span id="themeIcon">🌙</span>
+  </button>
 
   <script nonce="{{ csp_nonce }}">
     (function () {
+      var htmlEl = document.documentElement;
+      var themeIcon = document.getElementById('themeIcon');
+      
       function setTheme(t) {
-        document.body.classList.remove('theme-light', 'theme-dark');
-        document.body.classList.add('theme-' + t);
+        if (t === 'dark') {
+          htmlEl.classList.add('dark-theme');
+          if (themeIcon) themeIcon.textContent = '☀️';
+        } else {
+          htmlEl.classList.remove('dark-theme');
+          if (themeIcon) themeIcon.textContent = '🌙';
+        }
         try { localStorage.setItem('theme', t); } catch (e) {}
       }
-      document.addEventListener('click', function (e) {
-        if (!e.target.closest('[data-theme-toggle]')) return;
-        var current = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
-        setTheme(current);
-      });
+      
+      var toggleBtn = document.getElementById('themeToggle');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', function () {
+          var current = htmlEl.classList.contains('dark-theme') ? 'light' : 'dark';
+          setTheme(current);
+        });
+      }
+      
       var saved = 'light';
       try { saved = localStorage.getItem('theme') || 'light'; } catch (e) {}
       setTheme(saved);

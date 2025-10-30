@@ -1,5 +1,5 @@
 ''' 
-Main Application - FocusPad (with CSRF, CSP, and static MIME fix)
+Main Application - FocusPad
 '''
 import mimetypes  # ensure CSS served w/ text/css MIME type
 mimetypes.add_type('text/css', '.css')
@@ -45,13 +45,10 @@ def init_db():
             )
         """)
 
+# Combined before_request to handle both init and nonce
 @app.before_request
 def before_request():
     init_db()
-
-# Generated a per-request nonce for CSP
-@app.before_request
-def before_request():
     g.csp_nonce = secrets.token_urlsafe(16)
 
 # Exposed CSP nonce to templates
