@@ -85,6 +85,104 @@ h2::before {
   padding: 0 2rem;
 }
 
+/* Header */
+.header {
+  background: var(--white);
+  border-bottom: 2px solid var(--sand-dark);
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+html.dark-theme .header {
+  background: var(--bark);
+  border-bottom-color: var(--stone);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.brand:hover {
+  transform: translateY(-1px);
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--forest);
+  letter-spacing: 1px;
+}
+
+html.dark-theme .brand-name {
+  color: var(--moss);
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  color: var(--stone);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.nav-link:hover {
+  color: var(--forest);
+  background: var(--sand-dark);
+  transform: translateY(-1px);
+}
+
+.nav-link:focus-visible {
+  outline: 3px solid rgba(107, 142, 35, 0.4);
+  outline-offset: 2px;
+}
+
+html.dark-theme .nav-link {
+  color: var(--moss);
+}
+
+html.dark-theme .nav-link:hover {
+  color: var(--sage-light);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Footer */
+.footer {
+  background: transparent;
+  padding: 2rem 0;
+  margin-top: 4rem;
+  text-align: center;
+}
+
+.footer p {
+  color: var(--stone-light);
+  font-size: 0.9rem;
+}
+
+html.dark-theme .footer p {
+  color: var(--stone);
+}
+
 /* Navbar */
 .navbar {
   background: var(--forest);
@@ -535,6 +633,19 @@ html.dark-theme ::-webkit-scrollbar-thumb:hover {
     padding: 0 1.5rem;
   }
   
+  .nav {
+    gap: 1rem;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .brand-name {
+    font-size: 1.25rem;
+  }
+  
   .btn {
     padding: 0.875rem 2rem;
     font-size: 0.85rem;
@@ -569,6 +680,19 @@ html.dark-theme ::-webkit-scrollbar-thumb:hover {
   
   .container {
     padding: 0 1rem;
+  }
+  
+  .nav {
+    gap: 0.5rem;
+  }
+  
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 0.35rem 0.6rem;
+  }
+  
+  .brand-name {
+    font-size: 1.1rem;
   }
   
   .btn {
