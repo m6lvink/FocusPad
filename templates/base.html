@@ -7,15 +7,15 @@
   <meta name="author" content="Melvin Kaneshiro"> 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <!-- Security headers -->
+  <!-- Security headers in HTML are informational only; real headers are set by Flask -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   
   <title>{% block title %}FocusPad{% endblock %}</title>
-  
-  <link rel="preconnect" href="/" crossorigin>
-  <link rel="stylesheet" href="/static/style.css">
+
+  <!-- Serve CSS via Flask to avoid path/cache issues -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="theme-light">
   <header class="header">
@@ -39,25 +39,20 @@
     </div>
   </footer>
 
-  <!-- Added CSP nonce attribute to allow this inline script under CSP -->
   <script nonce="{{ csp_nonce }}">
     (function () {
       function setTheme(t) {
         document.body.classList.remove('theme-light', 'theme-dark');
         document.body.classList.add('theme-' + t);
-        try {
-          localStorage.setItem('theme', t);
-        } catch (e) {}
+        try { localStorage.setItem('theme', t); } catch (e) {}
       }
       document.addEventListener('click', function (e) {
         if (!e.target.closest('[data-theme-toggle]')) return;
         var current = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
         setTheme(current);
       });
-      let saved = 'light';
-      try {
-        saved = localStorage.getItem('theme') || 'light';
-      } catch (e) {}
+      var saved = 'light';
+      try { saved = localStorage.getItem('theme') || 'light'; } catch (e) {}
       setTheme(saved);
     })();
   </script>

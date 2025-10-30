@@ -9,7 +9,6 @@
     <div class="alert alert-danger">{{ error }}</div>
   {% endif %}
 
-  <!-- Added CSRF token to this form -->
   <form method="POST">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 

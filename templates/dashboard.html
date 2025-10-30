@@ -1,17 +1,13 @@
 {% extends "base.html" %}
 
-<!-- Override the title block defined in base.html -->
 {% block title %}FocusPad – Dashboard{% endblock %}
 
-<!-- Main content section -->
 {% block content %}
-
-<!-- Top navbar and logout button -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <span class="navbar-brand">FocusPad</span>
     <div>
-      <!-- Changed logout to POST form with CSRF token -->
+      <!-- Logout via POST to include CSRF -->
       <form method="post" action="/logout" style="display:inline;">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <button type="submit" class="btn btn-outline-light">Logout</button>
@@ -20,11 +16,8 @@
   </div>
 </nav>
 
-<!-- Note creation section -->
 <div class="container mt-5">
-  
   <h2>Create a New Note</h2>
-  <!-- Added CSRF token to this form -->
   <form method="POST" action="/dashboard">
     <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
@@ -41,17 +34,14 @@
     <button type="submit" class="btn btn-primary">Add Note</button>
   </form>
 
-  <!-- Notes list -->
   <div class="row mt-4">
     {% for note in notes %}
     <div class="col-md-4">
       <div class="card note-card">
         <div class="card-body">
-          <!-- Note title -->
           <h5 class="card-title">{{ note[1] }}</h5>
-          <!-- Note content -->
           <p class="card-text">{{ note[2] }}</p>
-          <!-- Changed delete to POST form with CSRF token -->
+          <!-- Delete via POST with CSRF -->
           <form method="post" action="/delete/{{ note[0] }}" style="display:inline;">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <button type="submit" class="btn btn-sm btn-danger">Delete</button>
@@ -62,5 +52,4 @@
     {% endfor %}
   </div>
 </div>
-
 {% endblock %}

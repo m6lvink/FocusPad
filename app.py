@@ -1,6 +1,9 @@
 ''' 
-Main Application - FocusPad (reconstructed with CSRF and security headers) 
+Main Application - FocusPad (with CSRF, CSP, and static MIME fix)
 '''
+import mimetypes  # ensure CSS served w/ text/css MIME type
+mimetypes.add_type('text/css', '.css')
+
 from flask import Flask, render_template, request, redirect, session, url_for, g
 import sqlite3
 import os
