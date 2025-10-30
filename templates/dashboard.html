@@ -11,42 +11,51 @@
   <div class="container-fluid">
     <span class="navbar-brand">FocusPad</span>
     <div>
-      <a href="/logout" class="btn btn-outline-light">Logout</a>
+      <!-- Changed logout to POST form with CSRF token -->
+      <form method="post" action="/logout" style="display:inline;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button type="submit" class="btn btn-outline-light">Logout</button>
+      </form>
     </div>
   </div>
 </nav>
 
 <!-- Note creation section -->
 <div class="container mt-5">
-  <h2 class="mb-4">Create a New Note</h2>
+  
+  <h2>Create a New Note</h2>
+  <!-- Added CSRF token to this form -->
+  <form method="POST" action="/dashboard">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
 
-  <!-- POST form for adding a new note -->
-  <form method="POST">
-    <div class="mb-4">
-      <input name="title" class="form-control form-control-lg" placeholder="Title" required>
+    <div class="mb-3">
+      <label class="form-label">Title</label>
+      <input type="text" name="title" class="form-control" placeholder="Enter note title" required>
     </div>
-    <div class="mb-4">
-      <textarea name="content" class="form-control form-control-lg" rows="4" placeholder="Write your note..." required></textarea>
+
+    <div class="mb-3">
+      <label class="form-label">Content</label>
+      <textarea name="content" class="form-control" rows="4" placeholder="Enter note content" required></textarea>
     </div>
-    <button type="submit" class="btn btn-success btn-lg w-100">Add Note</button>
+
+    <button type="submit" class="btn btn-primary">Add Note</button>
   </form>
 
-  <!-- Divider between create and view sections -->
-  <hr class="my-5">
-  <h3>Your Notes</h3>
-
-  <!-- Notes display area -->
-  <div class="row">
+  <!-- Notes list -->
+  <div class="row mt-4">
     {% for note in notes %}
-    <div class="col-md-6 mt-4">
-      <div class="card shadow-sm note-fade-in">
+    <div class="col-md-4">
+      <div class="card note-card">
         <div class="card-body">
           <!-- Note title -->
           <h5 class="card-title">{{ note[1] }}</h5>
           <!-- Note content -->
           <p class="card-text">{{ note[2] }}</p>
-          <!-- Delete button for the note -->
-          <a href="/delete/{{ note[0] }}" class="btn btn-sm btn-danger">Delete</a>
+          <!-- Changed delete to POST form with CSRF token -->
+          <form method="post" action="/delete/{{ note[0] }}" style="display:inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form>
         </div>
       </div>
     </div>

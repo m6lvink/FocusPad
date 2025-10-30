@@ -14,74 +14,50 @@
   
   <title>{% block title %}FocusPad{% endblock %}</title>
   
-  <!-- Prevent theme flash -->
-  <script>
-    (function() {
-      try {
-        const theme = localStorage.getItem('theme');
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark-theme');
-        }
-      } catch (e) {
-        console.warn('localStorage not available');
-      }
-    })();
-  </script>
-  
-  <!-- Custom styles only -->
-  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+  <link rel="preconnect" href="/" crossorigin>
+  <link rel="stylesheet" href="/static/style.css">
 </head>
+<body class="theme-light">
+  <header class="header">
+    <div class="container d-flex justify-between align-center">
+      <a href="/" class="brand">
+        <span class="brand-name">FocusPad</span>
+      </a>
+      <nav class="nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/login" class="nav-link">Login</a>
+        <a href="/register" class="nav-link">Register</a>
+      </nav>
+    </div>
+  </header>
+  <main class="main container">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; {{ 2025 }} FocusPad</p>
+    </div>
+  </footer>
 
-<body>
-  {% block content %}{% endblock %}
-  
-  <!-- Theme toggle -->
-  <button id="themeToggle" aria-label="Toggle dark mode" aria-pressed="false">🌞</button>
-  
-  <noscript>
-    <style>
-      #themeToggle { display: none; }
-    </style>
-  </noscript>
-  
-  <script>
-    (function() {
-      const toggle = document.getElementById('themeToggle');
-      if (!toggle) return;
-      
-      function setTheme(theme) {
-        const isDark = theme === 'dark';
-        const root = document.documentElement;
-        
-        if (isDark) {
-          root.classList.add('dark-theme');
-          toggle.innerText = '🌙';
-          toggle.setAttribute('aria-pressed', 'true');
-        } else {
-          root.classList.remove('dark-theme');
-          toggle.innerText = '🌞';
-          toggle.setAttribute('aria-pressed', 'false');
-        }
-        
+  <!-- Added CSP nonce attribute to allow this inline script under CSP -->
+  <script nonce="{{ csp_nonce }}">
+    (function () {
+      function setTheme(t) {
+        document.body.classList.remove('theme-light', 'theme-dark');
+        document.body.classList.add('theme-' + t);
         try {
-          localStorage.setItem('theme', theme);
-        } catch (e) {
-          console.warn('Could not save theme preference');
-        }
+          localStorage.setItem('theme', t);
+        } catch (e) {}
       }
-      
-      toggle.addEventListener('click', function() {
-        const current = document.documentElement.classList.contains('dark-theme') ? 'light' : 'dark';
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('[data-theme-toggle]')) return;
+        var current = document.body.classList.contains('theme-dark') ? 'light' : 'dark';
         setTheme(current);
       });
-      
-      // Set initial state
       let saved = 'light';
       try {
         saved = localStorage.getItem('theme') || 'light';
-      } catch (e) {
-        console.warn('Could not read theme preference');
-      }
+      } catch (e) {}
       setTheme(saved);
     })();
   </script>
