@@ -1,125 +1,115 @@
 # FocusPad
 
-Note-taking app. Fast capture, clean interface, local storage
+Note-taking app. Fast capture and secure local storage
 
 ## What / Why
-What: Lightweight note app (HTML + Python + Flask).  
-Why: Capture ideas quickly in a calm, distraction-free environment.
+
+What: Lightweight note app built with Flask and SQLite.
+Why: Capture and organize thoughts quickly in a distraction-free environment space
 
 ## Quick start
 
 1. Clone and enter directory
+
    ```bash
    git clone https://github.com/m6lvink/FocusPad.git
    cd FocusPad
    ```
 
 2. Set up environment
+
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate   # Windows: .venv\Scripts\activate
    pip install -r requirements.txt
    ```
 
-3. Create static folder
-   ```bash
-   mkdir -p static
-   ```
+3. Run application
 
-4. Run application
    ```bash
    python app.py
    ```
 
-5. Open http://localhost:5000
+4. Open [http://localhost:5000](http://localhost:5000)
 
 ## Features
 
-- User registration and login
-- Create, view, delete notes
-- Nature-inspired design
-- Light and dark themes
-- SQLite storage
-- Fast and lightweight
+* User registration and login
+* Create, view, and delete notes
+* Secure sessions and CSRF protection
+* Light and dark themes
+* Clean nature-inspired design
+* SQLite storage
+* Fast and minimal interface
 
 ## Design
 
-- Earth tone colors (forest green, sage, moss)
-- Sand and bark backgrounds
-- Clean typography
-- Minimal animations
-- 8px border radius
-- Left border accents on cards
+* Earth-tone color theme
+* Clean typography and simple animations
+* 8px radius and border-accented cards
+* Responsive layout with minimal clutter
 
 ## File structure
 
 ```
 FocusPad/
 ├── app.py              # Flask application
-├── notes.db            # SQLite database
+├── notes.db            # SQLite db --> Gen
 ├── requirements.txt    # Python dependencies
 ├── static/
-│   └── style.css      # Nature theme styles
+│   └── style.css       # Styles and theme
 └── templates/
-    ├── base.html      # Base template
-    ├── index.html     # Home page
-    ├── login.html     # Login form
-    ├── register.html  # Registration form
-    └── dashboard.html # Note dashboard
+    ├── base.html       # Base layout
+    ├── index.html      # Landing page
+    ├── login.html      # Login view
+    ├── register.html   # Registration view
+    └── dashboard.html  # Notes dashboard
 ```
 
 ## Tech stack
 
-- Backend: Flask + SQLite
-- Frontend: HTML, CSS, minimal JavaScript
-- Design: Nature theme with earth tones
-- No external CSS frameworks
+* Backend: Flask + SQLite
+* Frontend: HTML, CSS, light JavaScript
+* Design: Nature theme
+* No external UI frameworks
 
 ## Development
 
-Format code before committing:
+Format before committing:
+
 ```bash
 black .
 prettier --write "templates/**/*.html"
 ```
 
-Use conventional commits:
+Example commits:
+
 ```bash
-git commit -m "feat(ui): add note search"
-git commit -m "fix(auth): validate password length"
+git commit -m "feat: add note encryption"
+git commit -m "fix: handle empty title input"
 ```
 
 ## Security
 
-- Passwords hashed with Werkzeug
-- Session cookies HTTP-only
-- CSRF protection via Flask session
-- Input sanitized with escape()
-- Set SECRET_KEY environment variable in production
-
-## Customization
-
-Edit CSS variables in `static/style.css`:
-```css
---forest: #2d5016;
---sage: #6b8e23;
---earth: #8b7355;
-```
+* Passwords hashed with Werkzeug
+* Session cookies HTTP-only and same-site
+* CSRF protection via Flask-WTF
+* Strict security headers and CSP
+* Use a strong `SECRET_KEY` in prod
 
 ## Known limitations
 
-- Single user per instance
-- Local storage only
-- Not tested with more than 1000 notes
-- No search functionality yet
-- No export functionality yet
+* Single-user database instance
+* No search or export yet
+* No multi-user collaboration
+* Local storage only
 
 ## Contributing
 
-- Create PRs from a feature branch
-- Describe the change and motivation in PR body
-- Keep PRs small and focused
-- Link to issues when applicable
+* Fork and branch per feature
+* Keep changes focused
+* Write clear commit messages
+* Open pull requests with context
 
 ## License
 
